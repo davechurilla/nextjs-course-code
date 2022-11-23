@@ -5,38 +5,36 @@ function handler(req, res) {
 
   if (req.method === "POST") {
     const { email, name, text } = req.body;
-    if (
-      !email.includes("@") ||
-      !name ||
-      !text ||
-      text.trim() === ""
-    ) {
+    if (!email.includes("@") || !name || !text || text.trim() === "") {
       res.status(422).json({ message: "Invlid input." });
       return;
     }
 
     console.log(email, name, text);
     const newComment = {
-      id: new Date().toISOString, email, name, text,
+      id: new Date().toISOString,
+      email,
+      name,
+      text,
     };
 
     console.log(newComment);
 
-    res.status(201).json({ message: 'Added comment.', comment: newComment });
+    res.status(201).json({ message: "Added comment.", comment: newComment });
 
-  if (req.method === "GET") {
-    const dummyList = [
-      { id: 'c1', name: 'Daver', text: 'First comment' },
-      { id: 'c2', name: 'Jack', text: 'Second comment' },
-    ];
+    if (req.method === "GET") {
+      const dummyList = [
+        { id: "c1", name: "Daver", text: "First comment" },
+        { id: "c2", name: "Jack", text: "Second comment" },
+      ];
 
-    res.status.json({ comments: dummyList });
+      res.status.json({ comments: dummyList });
+    }
+
+    // const filePath = buildEventPath();
+    // const eventData = extractEvent(filePath);
+    // const selectedEvent = eventData.find((event) => event.id === eventId);
+    // res.status(200).json({ event: selectedEvent });
   }
-
-  // const filePath = buildEventPath();
-  // const eventData = extractEvent(filePath);
-  // const selectedEvent = eventData.find((event) => event.id === eventId);
-  // res.status(200).json({ event: selectedEvent });
 }
-
 export default handler;
